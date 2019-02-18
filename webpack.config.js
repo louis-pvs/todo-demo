@@ -42,12 +42,14 @@ module.exports = ({ mode, presets } = { mode: "production", presets: [] }) => {
           }
         ]
       },
+      resolve: {
+        extensions: [".js", ".jsx"]
+      },
       plugins: [
         new webpack.ProgressPlugin(),
         new HtmlWebpackPlugin({
           template: "./src/index.ejs",
-          title: "louis-vincent.me",
-          author: "Louis.P",
+          title: "Todo Demo",
           filename: path.join(DIST_DIR, "/index.html"),
           excludeChunks: ["server"]
         })

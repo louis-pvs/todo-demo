@@ -1,23 +1,10 @@
-function component() {
-  var element = document.createElement("div");
-  var button = document.createElement("button");
-  var br = document.createElement("br");
+require("normalize.css");
 
-  button.innerHTML = "Click me";
-  element.appendChild(button);
-  element.appendChild(br);
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./App";
 
-  button.onclick = e => {
-    e.preventDefault();
-    import(/* webpackChunkName: 'logger' */ "./logger").then(logger =>
-      logger("hello world!")
-    );
-  };
-
-  return element;
-}
-
-document.body.appendChild(component());
+ReactDOM.render(<App />, document.getElementById("root")); // rendering the app in to DOM
 
 if (typeof module.hot !== "undefined") {
   module.hot.accept();
