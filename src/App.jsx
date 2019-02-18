@@ -2,15 +2,22 @@ import React, { useState } from "react";
 
 import "./index.scss";
 import List from "./List";
+import Input from "./Input";
 
 export default function App() {
-  const [state] = useState([{ id: 1, message: "hello" }]); //
+  const [todoList, addTask] = useState([{ id: 1, message: "hello" }]);
 
-  // initialize app
+  const onAddClick = message => {
+    const newId = todoList.length + 1;
+    const newTodoList = todoList.concat([{ id: newId, message }]);
+    addTask(newTodoList);
+  };
+
   return (
     <div className="app">
       <h1>To-do App!</h1>
-      <List data={state} />
+      <List data={todoList} />
+      <Input onAddClick={onAddClick} />
     </div>
   );
 }
