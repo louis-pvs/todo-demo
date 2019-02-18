@@ -1,12 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 
-import styles from "./index.scss";
-console.log(styles);
+import "./index.scss";
+import List from "./List";
+
 export default function App() {
+  const [state] = useState([{ id: 1, message: "hello" }]); //
+
   // initialize app
   return (
     <div className="app">
       <h1>To-do App!</h1>
+      <List data={state} />
     </div>
   );
 }
