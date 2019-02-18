@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import "./input.scss";
 
 Input.propTypes = {
   onAddClick: PropTypes.func
@@ -15,12 +16,20 @@ function Input({ onAddClick }) {
   };
   return (
     <form onSubmit={onSubmit}>
-      <input
-        onChange={e => updateInput(e.target.value)}
-        placeholder="Enter new task"
-        value={inputValue}
-      />
-      <button disabled={!inputValue} type="submit" onClick={onSubmit}>
+      <label className="input__label">
+        <input
+          className="input"
+          onChange={e => updateInput(e.target.value)}
+          placeholder="Enter new task"
+          value={inputValue}
+        />
+      </label>
+      <button
+        className="input__submitBtn"
+        disabled={!inputValue}
+        type="submit"
+        onClick={onSubmit}
+      >
         Add
       </button>
     </form>

@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import "./list.scss";
 
 List.propTypes = {
   data: PropTypes.arrayOf(
@@ -15,9 +16,11 @@ function List(props) {
     return <p>List is empty</p>;
   }
   return (
-    <ul>
+    <ul className="list">
       {props.data.map(({ id, message }) => (
-        <li key={id}>{message}</li>
+        <li className="list__item" key={id}>
+          {message}
+        </li>
       ))}
     </ul>
   );
