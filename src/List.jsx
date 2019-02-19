@@ -10,15 +10,36 @@ List.propTypes = {
       id: PropTypes.number,
       message: PropTypes.string
     })
-  )
+  ),
+  onCheckboxClick: PropTypes.func,
+  onDeleteClick: PropTypes.func
 };
 
 function List(props) {
-  if (!props.data) {
-    return <p>List is empty</p>;
+  if (!props.data.length) {
+    return (
+      <p className="list__emptyMessage">
+        Horayyy! You have no task at the moment.
+      </p>
+    );
   }
+
   function renderListItem(todo) {
-    return <ListItem key={todo.id} message={todo.message} />;
+    const onCheckboxClick = () => {
+      props.onCheckboxClick(todo.id);
+    };
+    const onClearClick = () => {
+      props.onDeleteClick(todo.id);
+    };
+    return (
+      <ListItem
+        done={todo.done}
+        key={todo.id}
+        message={todo.message}
+        onCheckboxClick={onCheckboxClick}
+        onClearClick={onClearClick}
+      />
+    );
   }
 
   return <ul className="list">{props.data.map(renderListItem)}</ul>;

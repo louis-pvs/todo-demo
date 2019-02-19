@@ -9,19 +9,24 @@
   margin: $space-md auto;
 }
 
+.list__emptyMessage {
+  color: rgba($base-white, 0.75);
+  font-weight: 200;
+}
+
 .list__item {
   border: 1px solid rgba($base-white, 0.5);
   box-sizing: border-box;
-  position: relative;
+  padding-right: $btn-size;
   padding: $space-sm $space-md;
+  position: relative;
   transition-duration: 0.012s;
   transition-property: background color;
   transition-timing-function: ease-in-out;
-  padding-right: $btn-size;
   // ellipsis
-  white-space: nowrap;
-  text-overflow: ellipsis;
   overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 
   &:first-of-type {
     border-top-left-radius: $border-radius;
@@ -44,34 +49,26 @@
 
 .list__itemCheckboxContainer {
   position: relative;
-}
 
-.list__itemCheckbox {
-  display: inline-block;
-  vertical-align: middle;
-  margin-right: $space-md;
-  margin-top: -6px;
-}
-
-.list__itemLabel {
-  display: inline-block;
-  line-height: 1;
-  margin-left: $space-md;
-  overflow: auto;
-  position: relative;
-  vertical-align: middle;
-  .list__itemCheckbox:checked + & {
+  &[data-done="true"] {
     text-decoration: line-through;
   }
 }
 
+.list__itemCheckbox {
+  display: inline-block;
+  margin-right: $space-md;
+  margin-top: -6px;
+  vertical-align: middle;
+}
+
 .list__itemCancelBtn {
   @include defaultBtn;
-  position: absolute;
-  right: 0;
   color: inherit;
   font-size: $text-sm;
-  line-height: $text-xl;
-  text-transform: uppercase;
   letter-spacing: 2px;
+  line-height: $text-xl;
+  position: absolute;
+  right: 0;
+  text-transform: uppercase;
 }

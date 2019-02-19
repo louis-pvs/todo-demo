@@ -2,17 +2,27 @@ import React from "react";
 import PropTypes from "prop-types";
 
 ListItem.propTypes = {
-  message: PropTypes.string
+  done: PropTypes.bool,
+  message: PropTypes.string,
+  onCheckboxClick: PropTypes.func,
+  onClearClick: PropTypes.func
 };
 
-function ListItem({ message }) {
+function ListItem({ done, message, onCheckboxClick, onClearClick }) {
   return (
     <li className="list__item">
-      <label className="list__itemCheckboxContainer">
-        <input type="checkbox" className="list__itemCheckbox" />
+      <label className="list__itemCheckboxContainer" data-done={done}>
+        <input
+          checked={done}
+          className="list__itemCheckbox"
+          onChange={onCheckboxClick}
+          type="checkbox"
+        />
         {message}
       </label>
-      <button className="list__itemCancelBtn">clear</button>
+      <button className="list__itemCancelBtn" onClick={onClearClick}>
+        clear
+      </button>
     </li>
   );
 }
