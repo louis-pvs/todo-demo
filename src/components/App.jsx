@@ -1,12 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import "../styles/index.scss";
 import List from "./List";
 import Input from "./Input";
 
+import { getTodoList, storeTodoList } from "../services/localStorage";
+
 export default function App() {
   const INITIAL_STATE = [{ id: 1, message: "Example Task", done: false }];
-  const [todoList, updateTodoList] = useState(INITIAL_STATE);
+  const [todoList, updateTodoList] = useState(getTodoList() || INITIAL_STATE);
+  useEffect(() => {
+    storeTodoList(todoList);
+  }, [todoList]);
 
   const onAddClick = message => {
     const newId = todoList.length + 1;

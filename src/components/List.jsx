@@ -16,7 +16,7 @@ List.propTypes = {
 };
 
 function List(props) {
-  if (!props.data.length) {
+  if (!props.data || !props.data.length) {
     return (
       <p className="list__emptyMessage">
         Horayyy! You have no task at the moment.
