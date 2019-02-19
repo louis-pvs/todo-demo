@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
+
 import "./list.scss";
+import ListItem from "./ListItem";
 
 List.propTypes = {
   data: PropTypes.arrayOf(
@@ -15,15 +17,11 @@ function List(props) {
   if (!props.data) {
     return <p>List is empty</p>;
   }
-  return (
-    <ul className="list">
-      {props.data.map(({ id, message }) => (
-        <li className="list__item" key={id}>
-          {message}
-        </li>
-      ))}
-    </ul>
-  );
+  function renderListItem(todo) {
+    return <ListItem key={todo.id} message={todo.message} />;
+  }
+
+  return <ul className="list">{props.data.map(renderListItem)}</ul>;
 }
 
 export default List;

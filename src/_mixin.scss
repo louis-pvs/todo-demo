@@ -1,0 +1,10 @@
+@mixin defaultBtn {
+  background-color: transparent;
+  border: 0 solid transparent;
+  min-width: $btn-size;
+  cursor: pointer;
+
+  &[disabled] {
+    cursor: initial;
+  }
+}

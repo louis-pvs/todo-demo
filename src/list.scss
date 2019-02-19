@@ -1,4 +1,5 @@
 @import "_var.scss";
+@import "_mixin.scss";
 
 .list {
   list-style: none;
@@ -10,10 +11,13 @@
 
 .list__item {
   border: 1px solid rgba($base-white, 0.5);
+  box-sizing: border-box;
+  position: relative;
   padding: $space-sm $space-md;
   transition-duration: 0.012s;
   transition-property: background color;
   transition-timing-function: ease-in-out;
+  padding-right: $btn-size;
   // ellipsis
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -34,7 +38,40 @@
     border-top-width: 1px;
   }
   &:hover {
-    background-color: $base-white;
-    color: $primary;
+    background-color: darken($primary, 10%);
   }
+}
+
+.list__itemCheckboxContainer {
+  position: relative;
+}
+
+.list__itemCheckbox {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: $space-md;
+  margin-top: -6px;
+}
+
+.list__itemLabel {
+  display: inline-block;
+  line-height: 1;
+  margin-left: $space-md;
+  overflow: auto;
+  position: relative;
+  vertical-align: middle;
+  .list__itemCheckbox:checked + & {
+    text-decoration: line-through;
+  }
+}
+
+.list__itemCancelBtn {
+  @include defaultBtn;
+  position: absolute;
+  right: 0;
+  color: inherit;
+  font-size: $text-sm;
+  line-height: $text-xl;
+  text-transform: uppercase;
+  letter-spacing: 2px;
 }

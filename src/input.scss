@@ -1,4 +1,5 @@
 @import "_var.scss";
+@import "_mixin.scss";
 
 .input {
   border-radius: $border-radius;
@@ -20,6 +21,7 @@
 }
 
 .input__submitBtn {
+  @include defaultBtn;
   background-color: $base-white;
   border-radius: $border-radius;
   border: 1px solid transparent;
@@ -27,9 +29,7 @@
   box-sizing: border-box;
   clear: right;
   color: $primary;
-  cursor: pointer;
   height: $text-md + ($space-sm * 2);
-  min-width: 100px;
   padding: 0 $space-sm;
   text-transform: uppercase;
 
@@ -37,6 +37,5 @@
     background-color: transparent;
     border: 1px solid rgba($base-white, 0.5);
     color: rgba($base-white, 0.5);
-    cursor: default;
   }
 }

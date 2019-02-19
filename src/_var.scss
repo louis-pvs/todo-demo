@@ -13,6 +13,8 @@ $scale-ratio: 1.2;
 $border-radius: 4px;
 $border-radius-lg: $border-radius * $scale-ratio;
 
+$btn-size: 100px;
+
 // typography
 $headline-line-height: 1.2;
 $body-line-height: 1.4;
@@ -28,5 +30,7 @@ $text-xxxl: $base-size *
   ($scale-ratio * $scale-ratio * $scale-ratio * $scale-ratio * $scale-ratio);
 
 // spaces
+
+$space-xs: $base-size / ($scale-ratio * $scale-ratio);
 $space-sm: $base-size / $scale-ratio;
 $space-md: $base-size * $scale-ratio;
