@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import "./input.scss";
+import "../styles/input.scss";
 
 Input.propTypes = {
   onAddClick: PropTypes.func

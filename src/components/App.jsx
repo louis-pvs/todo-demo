@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import "./index.scss";
+import "../styles/index.scss";
 import List from "./List";
 import Input from "./Input";
 
