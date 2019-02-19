@@ -1,47 +1,36 @@
-import React, { useState, useEffect } from "react";
-
+import React from "react";
 import "../styles/index.scss";
 import List from "./List";
 import Input from "./Input";
 
-import { getTodoList, storeTodoList } from "../services/localStorage";
+import useTodoData from "../services/useTodoData";
 
 export default function App() {
-  const INITIAL_STATE = [{ id: 1, message: "Example Task", done: false }];
-  const [todoList, updateTodoList] = useState(getTodoList() || INITIAL_STATE);
-  useEffect(() => {
-    storeTodoList(todoList);
-  }, [todoList]);
-
-  const onAddClick = message => {
-    const newId = todoList.length + 1;
-    const newTodoList = todoList.concat([{ id: newId, message, done: false }]);
-    updateTodoList(newTodoList);
-  };
-  // mark task done
-  const onCheckboxClick = id => {
-    const newTodoList = todoList.map(todo => {
-      if (todo.id === id) return { ...todo, done: !todo.done };
-      return todo;
-    });
-    updateTodoList(newTodoList);
-  };
-  // delete task
-  const onDeleteClick = id => {
-    const newTodoList = todoList.filter(todo => todo.id !== id);
-    updateTodoList(newTodoList);
-  };
+  const {
+    addTodo,
+    isError,
+    isLoading,
+    removeTodo,
+    todoList,
+    updateTodoCompletion
+  } = useTodoData();
 
   return (
     <div className="app">
       <h1 className="app__headline">To-Do App!</h1>
       <h4 className="app__subheadline">Add New To-Do</h4>
-      <Input onAddClick={onAddClick} />
+      {isError ? (
+        <p className="app__errorMessage">
+          Something went wrong on our side, so sorry please try again.
+        </p>
+      ) : null}
+      <Input onAddClick={addTodo} />
       <List
         data={todoList}
-        onCheckboxClick={onCheckboxClick}
-        onDeleteClick={onDeleteClick}
+        onCheckboxClick={updateTodoCompletion}
+        onDeleteClick={removeTodo}
       />
+      {isLoading ? <p className="app__loadingMessage">Loading...</p> : null}
     </div>
   );
 }

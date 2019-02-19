@@ -34,3 +34,14 @@ h4 {
   margin-top: $space-sm;
   font-weight: 300;
 }
+
+.app__loadingMessage {
+  color: rgba($base-white, 0.75);
+  font-size: $text-sm;
+  font-weight: 200;
+}
+.app__errorMessage {
+  color: $alert;
+  font-weight: 200;
+  font-size: $text-sm;
+}

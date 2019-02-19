@@ -7,7 +7,7 @@ import ListItem from "./ListItem";
 List.propTypes = {
   data: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.number,
+      id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
       message: PropTypes.string
     })
   ),
@@ -26,7 +26,7 @@ function List(props) {
 
   function renderListItem(todo) {
     const onCheckboxClick = () => {
-      props.onCheckboxClick(todo.id);
+      props.onCheckboxClick(todo.id, !todo.done);
     };
     const onClearClick = () => {
       props.onDeleteClick(todo.id);
