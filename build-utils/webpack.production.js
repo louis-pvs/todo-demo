@@ -1,7 +1,8 @@
 const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
-const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+const TerserPlugin = require('terser-webpack-plugin');
+
 
 module.exports = {
   mode: "production",
@@ -11,7 +12,7 @@ module.exports = {
   optimization: {
     noEmitOnErrors: true,
     minimizer: [
-      new UglifyJsPlugin({
+      new TerserPlugin({
         cache: true,
         parallel: true,
         sourceMap: false // set to true if you want JS source maps
