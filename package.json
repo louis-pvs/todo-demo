@@ -15,6 +15,7 @@
     "analyze:dev": "BABEL_ENV=production webpack --env.mode development --env.presets analyze",
     "start:prod": "mode=production node ./dist/server/index.bundle.js",
     "start:dev": "mode=development node ./server/development.js",
+    "start": "yarn start:prod",
     "build:prod": "BABEL_ENV=production run-p \"bundle:* --parallel --env.mode production\"",
     "build:dev": "BABEL_ENV=production run-p \"bundle:* --parallel --env.mode development\""
   },
