@@ -6,14 +6,7 @@ import Input from "./Input";
 import useTodoData from "../services/useTodoData";
 
 export default function App() {
-  const {
-    addTodo,
-    isError,
-    isLoading,
-    removeTodo,
-    todoList,
-    updateTodoCompletion
-  } = useTodoData();
+  const { addTodo, isError, isLoading } = useTodoData();
 
   return (
     <div className="app">
@@ -25,11 +18,7 @@ export default function App() {
         </p>
       ) : null}
       <Input onAddClick={addTodo} />
-      <List
-        data={todoList}
-        onCheckboxClick={updateTodoCompletion}
-        onDeleteClick={removeTodo}
-      />
+      <List />
       {isLoading ? <p className="app__loadingMessage">Loading...</p> : null}
     </div>
   );

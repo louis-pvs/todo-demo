@@ -1,22 +1,13 @@
 import React from "react";
-import PropTypes from "prop-types";
+
+import useTodoData from "../services/useTodoData";
 
 import "../styles/list.scss";
 import ListItem from "./ListItem";
 
-List.propTypes = {
-  data: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-      message: PropTypes.string
-    })
-  ),
-  onCheckboxClick: PropTypes.func,
-  onDeleteClick: PropTypes.func
-};
-
-function List(props) {
-  if (!props.data || !props.data.length) {
+function List() {
+  const { removeTodo, todoList, updateTodoCompletion } = useTodoData();
+  if (!todoList || !todoList.length) {
     return (
       <p className="list__emptyMessage">
         Horayyy! You have no task at the moment.
@@ -26,10 +17,10 @@ function List(props) {
 
   function renderListItem(todo) {
     const onCheckboxClick = () => {
-      props.onCheckboxClick(todo.id, !todo.done);
+      updateTodoCompletion(todo.id, !todo.done);
     };
     const onClearClick = () => {
-      props.onDeleteClick(todo.id);
+      removeTodo(todo.id);
     };
     return (
       <ListItem
@@ -42,7 +33,7 @@ function List(props) {
     );
   }
 
-  return <ul className="list">{props.data.map(renderListItem)}</ul>;
+  return <ul className="list">{todoList.map(renderListItem)}</ul>;
 }
 
 export default List;
