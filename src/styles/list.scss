@@ -17,8 +17,8 @@
 .list__item {
   border: 1px solid rgba($base-white, 0.5);
   box-sizing: border-box;
-  padding-right: $btn-size;
   padding: $space-sm $space-md;
+  padding-right: $btn-size;
   position: relative;
   transition-duration: 0.012s;
   transition-property: background color;
