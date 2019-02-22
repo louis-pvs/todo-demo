@@ -2,7 +2,9 @@ import { useState, useEffect } from "react";
 // to be move to services
 
 import { getTodoList, storeTodoList } from "../services/localStorage";
-import { firestore } from "firebase";
+import initializeFirebase from "../../utils/firebase";
+
+const firebase = initializeFirebase();
 
 let cacheList = [];
 export default function useTodoData() {
@@ -10,8 +12,7 @@ export default function useTodoData() {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
 
-  const db = firestore();
-  const listRef = db.collection("todo");
+  const listRef = firebase.firestore().collection("todo");
 
   useEffect(() => {
     startFetching();
@@ -53,8 +54,8 @@ export default function useTodoData() {
     const newData = {
       done: false,
       message,
-      createdTime: firestore.Timestamp.fromDate(new Date()),
-      modifiedTime: firestore.Timestamp.fromDate(new Date())
+      createdTime: firebase.firestore.Timestamp.fromDate(new Date()),
+      modifiedTime: firebase.firestore.Timestamp.fromDate(new Date())
     };
     updateListWithCache(todoList.concat([{ id: newTodoRef.id, ...newData }]));
     newTodoRef
@@ -66,7 +67,7 @@ export default function useTodoData() {
     startFetching();
     const newData = {
       done,
-      modifiedTime: firestore.FieldValue.serverTimestamp()
+      modifiedTime: firebase.firestore.FieldValue.serverTimestamp()
     };
     updateListWithCache(
       todoList.map(i => (i.id === id ? { ...i, ...newData } : i))

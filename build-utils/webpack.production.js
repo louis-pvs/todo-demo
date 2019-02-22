@@ -1,8 +1,7 @@
 const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
-const TerserPlugin = require('terser-webpack-plugin');
-
+const TerserPlugin = require("terser-webpack-plugin");
 
 module.exports = {
   mode: "production",
@@ -10,7 +9,6 @@ module.exports = {
     main: "./src/index.js"
   },
   optimization: {
-    noEmitOnErrors: true,
     minimizer: [
       new TerserPlugin({
         cache: true,
@@ -38,8 +36,8 @@ module.exports = {
       verbose: true
     }),
     new MiniCssExtractPlugin({
-      filename: "[name].css",
-      chunkFilename: "[id].css"
+      filename: "stylesheet/[name].css",
+      chunkFilename: "stylesheet/[name].chunk.css"
     })
   ]
 };

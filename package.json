@@ -20,8 +20,9 @@
     "build:dev": "BABEL_ENV=production run-p \"bundle:* --parallel --env.mode development\""
   },
   "dependencies": {
+    "@firebase/app": "^0.3.9",
+    "@firebase/firestore": "^1.0.4",
     "express": "^4.16.4",
-    "firebase": "^5.8.3",
     "mini-css-extract-plugin": "^0.5.0",
     "normalize.css": "^8.0.1",
     "react": "^16.8.2",

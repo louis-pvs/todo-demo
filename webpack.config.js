@@ -22,6 +22,30 @@ module.exports = ({ mode, presets } = { mode: "production", presets: [] }) => {
         filename: "javascript/[name].bundle.js",
         chunkFilename: "javascript/[name].chunkfile.js"
       },
+      optimization: {
+        noEmitOnErrors: true,
+        runtimeChunk: "single",
+        splitChunks: {
+          chunks: "all",
+          maxInitialRequests: Infinity,
+          minSize: 0,
+          cacheGroups: {
+            vendor: {
+              test: /[\\/]node_modules[\\/].*\.js$/,
+              name(module) {
+                // get the name. E.g. node_modules/packageName/not/this/part.js
+                // or node_modules/packageName
+                const packageName = module.context.match(
+                  /[\\/]node_modules[\\/](.*?)([\\/]|$)/
+                )[1];
+
+                // npm package names are URL-safe, but some servers don't like @ symbols
+                return `npm.${packageName.replace("@", "")}`;
+              }
+            }
+          }
+        }
+      },
       target: "web",
       module: {
         rules: [
