@@ -1,15 +1,18 @@
-/**
- *  @returns firebase database
- **/
-function initializeFirestore() {
-  const firebase = require("@firebase/app").default;
-  require("@firebase/firestore");
-  const { NODE_ENV } = process.env;
-  const config = require("../../firebase.key." + NODE_ENV);
+import firebase from "@firebase/app";
+require("@firebase/firestore");
 
-  // Initialize Firebase
-  firebase.initializeApp(config);
-  return firebase;
+const { NODE_ENV } = process.env;
+const config = require("../../firebase.key." + NODE_ENV);
+
+let registedFirebase = null;
+
+function initializeFirebase() {
+  if (registedFirebase) {
+    return registedFirebase;
+  } else {
+    registedFirebase = firebase.initializeApp(config); // Initialize Firebase
+    return registedFirebase;
+  }
 }
 
-export default initializeFirestore;
+export default initializeFirebase;

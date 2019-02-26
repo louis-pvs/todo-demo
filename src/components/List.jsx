@@ -1,12 +1,20 @@
-import React from "react";
+import React, { Fragment } from "react";
 
 import useTodoData from "../services/useTodoData";
 
 import "../styles/list.scss";
+import Loading from "./Loading";
+import Error from "./Error";
 import ListItem from "./ListItem";
 
 function List() {
-  const { removeTodo, todoList, updateTodoCompletion } = useTodoData();
+  const {
+    isError,
+    isLoading,
+    removeTodo,
+    todoList,
+    updateTodoCompletion
+  } = useTodoData();
   if (!todoList || !todoList.length) {
     return (
       <p className="list__emptyMessage">
@@ -33,7 +41,13 @@ function List() {
     );
   }
 
-  return <ul className="list">{todoList.map(renderListItem)}</ul>;
+  return (
+    <Fragment>
+      {isError ? <Error /> : null}
+      <ul className="list">{todoList.map(renderListItem)}</ul>
+      {isLoading ? <Loading /> : null}
+    </Fragment>
+  );
 }
 
 export default List;

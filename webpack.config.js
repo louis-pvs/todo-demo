@@ -20,7 +20,7 @@ module.exports = ({ mode, presets } = { mode: "production", presets: [] }) => {
         path: DIST_DIR,
         publicPath: "/",
         filename: "javascript/[name].bundle.js",
-        chunkFilename: "javascript/[name].chunkfile.js"
+        chunkFilename: "javascript/[name].chunk.js"
       },
       optimization: {
         noEmitOnErrors: true,
@@ -28,8 +28,9 @@ module.exports = ({ mode, presets } = { mode: "production", presets: [] }) => {
         splitChunks: {
           chunks: "all",
           maxInitialRequests: Infinity,
-          minSize: 0,
+          minChunks: 1,
           cacheGroups: {
+            default: false,
             vendor: {
               test: /[\\/]node_modules[\\/].*\.js$/,
               name(module) {
