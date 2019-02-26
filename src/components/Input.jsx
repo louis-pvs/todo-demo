@@ -1,17 +1,17 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import "../styles/input.scss";
 
-import useTodoData from "../services/useTodoData";
+Input.propTypes = {
+  onAddClick: PropTypes.func
+};
 
-const INITIAL_VALUE = "";
-
-function Input() {
-  const { addTodo } = useTodoData();
+function Input({ onAddClick }) {
+  const INITIAL_VALUE = "";
   const [inputValue, updateInput] = useState(INITIAL_VALUE);
-
   const onSubmit = e => {
     e.preventDefault(); // prevent page reloading everytime click submit
-    addTodo(inputValue);
+    onAddClick(inputValue);
     updateInput(INITIAL_VALUE);
   };
   return (

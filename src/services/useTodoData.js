@@ -55,50 +55,52 @@ export default function useTodoData() {
   }
   const addTodo = message => {
     startFetching();
-    getRegistedFirebase().then(_addTodo);
-    function _addTodo(db) {
-      const newTodoRef = getCollection(db).doc(); // getting the new document id from firestore
+    getRegistedFirebase()
+      .then(_addTodo)
+      .then(() => setIsLoading(false))
+      .catch(handleError);
+    function _addTodo({ firebase_ }) {
+      const newTodoRef = getCollection(firebase_).doc(); // getting the new document id from firestore
       const newData = {
         done: false,
         message,
-        createdTime: db.firestore.Timestamp.fromDate(new Date()),
-        modifiedTime: db.firestore.Timestamp.fromDate(new Date())
+        createdTime: firebase_.firestore.Timestamp.fromDate(new Date()),
+        modifiedTime: firebase_.firestore.Timestamp.fromDate(new Date())
       };
       updateListWithCache(todoList.concat([{ id: newTodoRef.id, ...newData }]));
-      newTodoRef
-        .set(newData) // create new document in firestore collection
-        .then(() => setIsLoading(false))
-        .catch(handleError);
+      newTodoRef.set(newData); // create new document in firestore collection
     }
   };
   const updateTodoCompletion = (id, done) => {
     startFetching();
-    getRegistedFirebase().then(_updateTodoCompletion);
-    function _updateTodoCompletion(db) {
+    getRegistedFirebase()
+      .then(_updateTodoCompletion)
+      .then(() => setIsLoading(false))
+      .catch(handleError);
+    function _updateTodoCompletion({ firebase_ }) {
       const newData = {
         done,
-        modifiedTime: db.firestore.FieldValue.serverTimestamp()
+        modifiedTime: firebase_.firestore.FieldValue.serverTimestamp()
       };
       updateListWithCache(
         todoList.map(i => (i.id === id ? { ...i, ...newData } : i))
       );
-      getCollection(db)
+      getCollection(firebase_)
         .doc(id)
-        .update(newData)
-        .then(() => setIsLoading(false))
-        .catch(handleError);
+        .update(newData);
     }
   };
   const removeTodo = id => {
     startFetching();
-    getRegistedFirebase().then(_removeTodo);
-    function _removeTodo(db) {
+    getRegistedFirebase()
+      .then(_removeTodo)
+      .then(() => setIsLoading(false))
+      .catch(handleError);
+    function _removeTodo({ firebase_ }) {
       updateListWithCache(todoList.filter(i => i.id !== id));
-      getCollection(db)
+      getCollection(firebase_)
         .doc(id)
-        .delete()
-        .then(() => setIsLoading(false))
-        .catch(handleError);
+        .delete();
     }
   };
   function handleError() {

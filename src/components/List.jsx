@@ -1,21 +1,26 @@
 import React, { Fragment } from "react";
-
-import useTodoData from "../services/useTodoData";
+import PropTypes from "prop-types";
 
 import "../styles/list.scss";
 import Loading from "./Loading";
 import Error from "./Error";
 import ListItem from "./ListItem";
 
-function List() {
-  const {
-    isError,
-    isLoading,
-    removeTodo,
-    todoList,
-    updateTodoCompletion
-  } = useTodoData();
-  if (!todoList || !todoList.length) {
+List.propTypes = {
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+      message: PropTypes.string
+    })
+  ),
+  onCheckboxClick: PropTypes.func,
+  onDeleteClick: PropTypes.func,
+  isError: PropTypes.bool,
+  isLoading: PropTypes.bool
+};
+
+function List(props) {
+  if (!props.data || !props.data.length) {
     return (
       <p className="list__emptyMessage">
         Horayyy! You have no task at the moment.
@@ -25,10 +30,10 @@ function List() {
 
   function renderListItem(todo) {
     const onCheckboxClick = () => {
-      updateTodoCompletion(todo.id, !todo.done);
+      props.onCheckboxClick(todo.id, !todo.done);
     };
     const onClearClick = () => {
-      removeTodo(todo.id);
+      props.onDeleteClick(todo.id);
     };
     return (
       <ListItem
@@ -43,9 +48,9 @@ function List() {
 
   return (
     <Fragment>
-      {isError ? <Error /> : null}
-      <ul className="list">{todoList.map(renderListItem)}</ul>
-      {isLoading ? <Loading /> : null}
+      {props.isError ? <Error /> : null}
+      <ul className="list">{props.data.map(renderListItem)}</ul>
+      {props.isLoading ? <Loading /> : null}
     </Fragment>
   );
 }
