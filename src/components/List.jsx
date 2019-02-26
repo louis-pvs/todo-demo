@@ -55,4 +55,22 @@ function List(props) {
   );
 }
 
-export default List;
+function areEqual(prevProps, nextProps) {
+  return (
+    nextProps.isError === prevProps.isError &&
+    nextProps.isLoading === prevProps.isLoading &&
+    !nextProps.data.some(function areDiff(item, i) {
+      return (
+        // checking either one of them are different or modified
+        prevProps.data[i] &&
+        (prevProps.data[i].id !== item.id ||
+          prevProps.data[i].modifiedTime !== item.modifiedTime ||
+          prevProps.data[i].message !== item.message)
+      );
+    })
+  );
+}
+
+const MemoList = React.memo(List, areEqual);
+
+export default MemoList;
