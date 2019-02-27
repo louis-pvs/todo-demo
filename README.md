@@ -1,4 +1,4 @@
-A demo To-do application made with `react` and `firebase`, [live demo here](http://178.128.7.247:3000)
+A demo To-do application made with `react` and `firebase`, [live demo here](http://louis-vincent.me/todo)
 
 ### Using this repo
 after clone this repo, run `yarn` or `npm install` to install dependencies
