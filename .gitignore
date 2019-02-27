@@ -75,5 +75,8 @@ typings/
 # FuseBox cache
 .fusebox/
 
+# configures/setting file
+.vscode
+
 # production build
 dist
