@@ -1,10 +1,13 @@
 import React, { Fragment } from "react";
+import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
 import "../styles/list.scss";
 import Loading from "./Loading";
 import Error from "./Error";
 import ListItem from "./ListItem";
+
+import * as actions from "../states/todo/actions";
 
 List.propTypes = {
   data: PropTypes.arrayOf(
@@ -13,8 +16,8 @@ List.propTypes = {
       message: PropTypes.string
     })
   ),
-  onCheckboxClick: PropTypes.func,
-  onDeleteClick: PropTypes.func,
+  removeTodo: PropTypes.func.isRequired,
+  toggleTodoCompletion: PropTypes.func.isRequired,
   isError: PropTypes.bool,
   isLoading: PropTypes.bool
 };
@@ -30,10 +33,10 @@ function List(props) {
 
   function renderListItem(todo) {
     const onCheckboxClick = () => {
-      props.onCheckboxClick(todo.id, !todo.done);
+      props.toggleTodoCompletion(todo.id);
     };
     const onClearClick = () => {
-      props.onDeleteClick(todo.id);
+      props.removeTodo(todo.id);
     };
     return (
       <ListItem
@@ -71,6 +74,17 @@ function areEqual(prevProps, nextProps) {
   );
 }
 
-const MemoList = React.memo(List, areEqual);
-
-export default MemoList;
+export default React.memo(
+  connect(
+    ({ app, todo }) => ({
+      isLoading: app.isLoading,
+      isError: app.isError,
+      data: todo
+    }),
+    {
+      toggleTodoCompletion: actions.toggleTodoCompletion,
+      removeTodo: actions.removeTodo
+    }
+  )(List),
+  areEqual
+);

@@ -1,17 +1,20 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
 import PropTypes from "prop-types";
+
+import * as actions from "../states/todo/actions";
 import "../styles/input.scss";
 
 Input.propTypes = {
-  onAddClick: PropTypes.func
+  addTodo: PropTypes.func.isRequired
 };
 
-function Input({ onAddClick }) {
+function Input({ addTodo }) {
   const INITIAL_VALUE = "";
   const [inputValue, updateInput] = useState(INITIAL_VALUE);
   const onSubmit = e => {
     e.preventDefault(); // prevent page reloading everytime click submit
-    onAddClick(inputValue);
+    addTodo(inputValue);
     updateInput(INITIAL_VALUE);
   };
   return (
@@ -36,4 +39,7 @@ function Input({ onAddClick }) {
   );
 }
 
-export default Input;
+export default connect(
+  null,
+  { addTodo: actions.addTodo }
+)(Input);

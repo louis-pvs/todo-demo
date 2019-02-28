@@ -1,5 +1,5 @@
-import { getTodoList } from "../services/localStorage";
-
+import { getTodoList } from "../../services/localStorage";
+import { UPDATE_TODO } from "./actions";
 const INITIAL_STATE = getTodoList() || [];
 
 /**
@@ -10,6 +10,8 @@ const INITIAL_STATE = getTodoList() || [];
  **/
 export default function todoReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
+    case UPDATE_TODO:
+      return action.payload;
     default:
       return state;
   }
