@@ -29,7 +29,8 @@
     "react-dom": "^16.8.2",
     "react-redux": "^6.0.1",
     "redux": "^4.0.1",
-    "redux-observable": "^1.0.0"
+    "redux-observable": "^1.0.0",
+    "rxfire": "^3.3.4"
   },
   "devDependencies": {
     "@babel/core": "^7.2.0",

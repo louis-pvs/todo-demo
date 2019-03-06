@@ -1,18 +1,17 @@
-import firebase from "@firebase/app";
-require("@firebase/firestore");
+import { from, combineLatest } from "rxjs";
+import { map } from "rxjs/operators";
 
 const { NODE_ENV } = process.env;
-const config = require("../../firebase.key." + NODE_ENV);
+const envConfig = require("../../firebase.key." + NODE_ENV);
 
-let registedFirebase = null;
-
-function initializeFirebase() {
-  if (registedFirebase) {
-    return registedFirebase;
-  } else {
-    registedFirebase = firebase.initializeApp(config); // Initialize Firebase
-    return registedFirebase;
-  }
+export function lazyLoadFirebase(config = envConfig) {
+  const firebase$ = from(import("@firebase/app"));
+  const firestore$ = from(import("@firebase/firestore"));
+  const rxfire$ = from(import("rxfire/firestore"));
+  return combineLatest(firebase$, firestore$, rxfire$).pipe(
+    map(([{ firebase }, __, rxfire]) => {
+      const app = firebase.apps[0] || firebase.initializeApp(config);
+      return { app, rxfire };
+    })
+  );
 }
-
-export default initializeFirebase;

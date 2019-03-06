@@ -5,7 +5,8 @@
   "plugins": ["jest", "react", "react-hooks"],
   "rules": {
     "no-console": 0,
-    "react-hooks/rules-of-hooks": "error"
+    "react-hooks/rules-of-hooks": "error",
+    "no-unused-vars": ["error", { "argsIgnorePattern": "_+" }]
   },
   "parserOptions": {
     "ecmaFeatures": {
